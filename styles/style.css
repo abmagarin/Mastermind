@@ -1,0 +1,77 @@
+body {
+    background-color: #8d99ae;
+    margin: 0 auto;
+    padding: 20px 20px 20px 20px;
+    width: 800px;
+    align-content: center;
+}
+
+html {
+    background-color: #edf2f4;
+}
+
+h1 {
+    text-align: center;
+    font-size: 50px;
+    font-family: "Wii";
+    color: #2b2d42;
+}
+
+@font-face {
+    font-family: 'Wii';
+    src: url('../fonts/ATTFShinGoProHeavy.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.container {
+    justify-content: center;
+
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 60px 60px 60px 60px 60px 0px;
+    gap: 10px;
+    padding: 10px;
+    margin-left: 15vw;
+    margin-right: 15vw;
+    justify-content: center;
+    position: relative;
+}
+
+.points {
+    display: grid;
+    grid-template-rows: repeat(5, 3px);
+    gap: 8px;
+    margin-left: -8px;
+}
+
+.row::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    opacity: 0;
+    z-index: 0;
+    transition: opacity 0.3s ease;
+}
+
+.row:hover::before {
+    opacity: 0.3;
+}
+
+.square {
+    width: 52px;
+    height: 52px;
+    background-color: #edf2f4;
+}
+
+.point {
+    width: 8px;
+    height: 8px;
+    background-color: #edf2f4;
+}
