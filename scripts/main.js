@@ -3,8 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let okButtons = document.querySelectorAll(".button-30");
     let startButton = document.querySelector(".start-button");
     let points = document.querySelectorAll(".point");
+    let endScreen = document.querySelector(".endScreen");
     let guesses = -1;
     let combination = [0, 0, 0, 0, 0];
+    let endButton = document.querySelector(".final");
 
     //COMBINATION AND START//////////////////////////////////
 
@@ -89,13 +91,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const colorNumber = colorToNumber(element.style.backgroundColor);
 
                 if (!usedSquares[indexSquare]) {
-                    combination.forEach((number, indexComb) => {
-                        if (!usedCombination[indexComb] && colorNumber === number) {
+                    for (let indexComb = 0; indexComb < combination.length; indexComb++) {
+                        if (!usedCombination[indexComb] && colorNumber === combination[indexComb]) {
                             totalColor++;
                             usedSquares[indexSquare] = true;
                             usedCombination[indexComb] = true;
+                            break;
                         }
-                    });
+                    }
                 }
             }
         });
@@ -107,39 +110,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function validatePoints(results) {
         points.forEach((element, index) => {
-            let pointsAssigned = 0;
-            if ((index >= guesses * 5) && (index <= (guesses * 5) + 4)) {
-                if (((index - guesses * 5) == 0) && (results[0] >= 1)) {
-                    element.style.backgroundColor = '#2b2d42';
-                    results[1]++;
-                } else if (((index - guesses * 5) == 0) && (results[1] >= 1)) {
-                    element.style.backgroundColor = '#55587e';
-                }
-                if (((index - guesses * 5) == 1) && (results[0] >= 2)) {
-                    element.style.backgroundColor = '#2b2d42';
-                    results[1]++;
-                } else if (((index - guesses * 5) == 1) && (results[1] >= 2)) {
-                    element.style.backgroundColor = '#55587e';
-                }
-                if (((index - guesses * 5) == 2) && (results[0] >= 3)) {
-                    element.style.backgroundColor = '#2b2d42';
-                    results[1]++;
-                } else if (((index - guesses * 5) == 2) && (results[1] >= 3)) {
-                    element.style.backgroundColor = '#55587e';
-                }
-                if (((index - guesses * 5) == 3) && (results[0] >= 4)) {
-                    element.style.backgroundColor = '#2b2d42';
-                    results[1]++;
-                } else if (((index - guesses * 5) == 3) && (results[1] >= 4)) {
-                    element.style.backgroundColor = '#55587e';
-                }
-                if (((index - guesses * 5) == 4) && (results[0] >= 5)) {
-                    element.style.backgroundColor = '#2b2d42';
-                    results[1]++;
-                } else if (((index - guesses * 5) == 4) && (results[1] >= 5)) {
-                    element.style.backgroundColor = '#55587e';
-                }
+            if (index >= guesses * 5 && index <= (guesses * 5) + 4) {
+                const relativeIndex = index - (guesses * 5);
 
+                if (relativeIndex < results[0]) {
+                    element.style.backgroundColor = '#2b2d42';
+                } else if (relativeIndex < results[0] + results[1]) {
+                    element.style.backgroundColor = '#55587e';
+                }
             }
         });
     }
@@ -206,4 +184,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     updateButtonVisibility();
+});
+
+endButton.addEventListener('click', () => {
+    endScreen.classList.toggle('visible');
+    endScreen.classList.toggle('hidden');
 });
