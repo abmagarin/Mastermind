@@ -29,7 +29,6 @@ h1 {
 
 .container {
     justify-content: center;
-
 }
 
 .row {
@@ -37,8 +36,6 @@ h1 {
     grid-template-columns: 60px 60px 60px 60px 60px 0px 0px;
     gap: 12px;
     padding: 10px;
-    margin-left: 15vw;
-    margin-right: 15vw;
     justify-content: center;
     position: relative;
 }
@@ -72,7 +69,8 @@ h1 {
     height: 52px;
     background-color: rgb(237, 242, 244);
     z-index: 0;
-    transition: color 0.3s ease;
+    border-radius: 0px;
+    transition: border-radius 0.5s ease-in-out;
 }
 
 .square:hover {
@@ -208,8 +206,62 @@ h1 {
     transform: translateY(2px);
 }
 
+.restart-button {
+    position: absolute;
+    left: 42%;
+    top: 50%;
+    margin-bottom: 3%;
+    align-items: center;
+    appearance: none;
+    background-color: #FCFCFD;
+    border-radius: 10px;
+    border-width: 0;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #36395A;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: 'Wii';
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s, transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+    text-align: center;
+    z-index: 11;
+    position: fixed;
+    top: 75vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+}
+
+.restart-button:focus {
+    box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.restart-button:hover {
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-5px) translate(-50%, -50%);
+}
+
+.restart-button:active {
+    box-shadow: #D6D6E7 0 3px 7px inset;
+    transform: translateY(2px) translate(-50%, -50%);
+}
+
 .endScreen {
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 1s ease-in-out;
     position: fixed;
     width: 100%;
     height: 100%;
@@ -224,11 +276,48 @@ h1 {
     pointer-events: none;
 }
 
-
-/* Objeto visible */
 .visible {
-    opacity: 1;
-    /* Completamente visible */
+    opacity: 0.8;
     pointer-events: auto;
-    /* Permite interacción cuando está visible */
+}
+
+.visibleSolid {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.resultText {
+    transition: opacity 1s ease-in-out;
+    position: fixed;
+    text-align: center;
+    font-size: 100px;
+    font-family: "Wii";
+    color: #2b2d42;
+    top: 15vh;
+    left: 50vw;
+    width: 100%;
+    z-index: 11;
+    transform: translate(-50%, -50%);
+}
+
+.resultRow {
+    position: fixed;
+    top: 55vh;
+    left: 50vw;
+    display: flex;
+    gap: 70px;
+    z-index: 11;
+    transform: translate(-50%, -50%);
+}
+
+.resultSquare {
+    width: 80px;
+    height: 80px;
+    background-color: rgb(237, 242, 244);
+    z-index: 0;
+    transition: transform 0.1s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.resultSquare:hover {
+    transform: scale(1.1);
 }

@@ -2,11 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let squares = document.querySelectorAll(".square");
     let okButtons = document.querySelectorAll(".button-30");
     let startButton = document.querySelector(".start-button");
+    let restartButton = document.querySelector(".restart-button");
     let points = document.querySelectorAll(".point");
     let endScreen = document.querySelector(".endScreen");
+    let endPage = document.querySelector(".endPage");
     let guesses = -1;
     let combination = [0, 0, 0, 0, 0];
-    let endButton = document.querySelector(".final");
+    let resultText = document.querySelector(".resultText");
+    let resultRow = document.querySelector(".resultRow");
 
     //COMBINATION AND START//////////////////////////////////
 
@@ -16,11 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     startButton.addEventListener('click', (event) => {
+        startButton.blur();
         if (startButton.textContent === 'START') {
             guesses = 0;
             updateButtonVisibility();
             combination = [random(0, 4), random(0, 4), random(0, 4), random(0, 4), random(0, 4)];
-            startButton.textContent = combination;
+            startButton.textContent = "QUIT";
         }
         else {
             startButton.textContent = 'START';
@@ -53,6 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            okButtons[guesses].click();
+        }
+    });
+
+
     function updateButtonVisibility() {
         okButtons.forEach((button, index) => {
             if (guesses !== index) {
@@ -61,7 +72,19 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 button.style.visibility = 'visible';
             }
+
         });
+
+        squares.forEach(square => {
+            square.style.borderRadius = "0px";
+        });
+
+        let start = guesses * 5;
+        for (let i = 0; i < 5; i++) {
+            if (squares[start + i]) {
+                squares[start + i].style.borderRadius = "10px";
+            }
+        }
     }
 
     //POINTS//////////////////////////////////////
@@ -104,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         let result = [totalPosition, totalColor];
+
         validatePoints(result);
     }
 
@@ -120,6 +144,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
+        console.log(results[0]);
+        console.log(guesses);
+        if (results[0] === 5) {
+            setScreen(true);
+        } else if (guesses === 7) {
+            setScreen(false);
+        }
+
     }
 
     //SQUARE COLOR SWAP////////////////////////////////////
@@ -184,9 +216,74 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     updateButtonVisibility();
+
+    //POINTS SCREEN////////////////////////////
+
+    function setScreen(state) {
+        endScreen.classList.toggle('hidden');
+        endScreen.classList.toggle('visible');
+
+        if (state === false) {
+            resultText.textContent = "GAME OVER";
+        } else {
+            resultText.textContent = "YOU WIN";
+        }
+        setTimeout(() => {
+            resultText.classList.toggle('hidden');
+            resultText.classList.toggle('visibleSolid');
+            resultRow.classList.toggle('hidden');
+            resultRow.classList.toggle('visibleSolid');
+            restartButton.classList.toggle('hidden');
+            restartButton.classList.toggle('visibleSolid');
+        }, 1000);
+        const resultSquares = resultRow.children;
+        setTimeout(() => {
+            for (let i = 0; i < resultSquares.length; i++) {
+                setTimeout(() => {
+                    setColor(resultSquares[i], combination[i]);
+                }, 300 * i);
+            }
+        }, 2000);
+    }
+
+    restartButton.addEventListener('click', (event) => {
+        restartButton.blur();
+        guesses = 0;
+        updateButtonVisibility();
+        combination = [random(0, 4), random(0, 4), random(0, 4), random(0, 4), random(0, 4)];
+        okButtons.forEach((button, index) => {
+            if (guesses !== index) {
+                button.style.visibility = 'hidden';
+
+            } else {
+                button.style.visibility = 'visible';
+            }
+        });
+        squares.forEach(element => {
+            element.style.backgroundColor = '#edf2f4';
+        });
+        points.forEach(element => {
+            element.style.backgroundColor = '#edf2f4';
+        });
+
+        let children = resultRow.children;
+
+        for (let i = 0; i < children.length; i++) {
+            children[i].style.backgroundColor = '#edf2f4';
+        }
+
+        children = endPage.children;
+
+        for (let i = 0; i < children.length; i++) {
+            if (!children[i].classList.contains("endScreen")) {
+                children[i].classList.toggle('visibleSolid');
+            } else {
+                children[i].classList.toggle('visible');
+            }
+            children[i].classList.toggle('hidden');
+        }
+    });
+
 });
 
-endButton.addEventListener('click', () => {
-    endScreen.classList.toggle('visible');
-    endScreen.classList.toggle('hidden');
-});
+
