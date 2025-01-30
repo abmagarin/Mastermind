@@ -1,5 +1,11 @@
+:root {
+    --color-body: #8d99ae;
+    --color-global: #edf2f4;
+    --color-font: #2b2d42;
+}
+
 body {
-    background-color: #8d99ae;
+    background-color: var(--color-body);
     margin: 0 auto;
     padding: 20px 20px 20px 20px;
     width: 800px;
@@ -7,22 +13,31 @@ body {
     position: relative;
     align-items: center;
     justify-content: center;
+    border-left: var(--color-font) dashed 10px;
+    border-right: var(--color-font) dashed 10px;
 }
 
 html {
-    background-color: #edf2f4;
+    background-color: var(--color-global);
 }
 
 h1 {
     text-align: center;
-    font-size: 50px;
+    font-size: 70px;
     font-family: "Wii";
-    color: #2b2d42;
+    color: var(--color-font);
 }
 
 @font-face {
     font-family: 'Wii';
     src: url('../fonts/ATTFShinGoProHeavy.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'WiiTh';
+    src: url('../fonts/ATTFShinGoProRegular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -34,7 +49,7 @@ h1 {
 .row {
     display: grid;
     grid-template-columns: 60px 60px 60px 60px 60px 0px 0px;
-    gap: 12px;
+    gap: 32px;
     padding: 10px;
     justify-content: center;
     position: relative;
@@ -42,9 +57,9 @@ h1 {
 
 .points {
     display: grid;
-    grid-template-rows: repeat(5, 3px);
+    grid-template-rows: repeat(5, 7px);
     gap: 8px;
-    margin-left: -8px;
+    margin-left: -5px;
 }
 
 .row::before {
@@ -65,22 +80,25 @@ h1 {
 }
 
 .square {
-    width: 52px;
-    height: 52px;
+    width: 72px;
+    height: 72px;
     background-color: rgb(237, 242, 244);
     z-index: 0;
     border-radius: 0px;
-    transition: border-radius 0.5s ease-in-out;
-}
-
-.square:hover {
-    content-visibility: visible;
+    transition: border-radius 0.2s ease-in-out;
+    font-family: "WiiTh";
+    color: rgb(237, 242, 244);
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .point {
-    width: 8px;
-    height: 8px;
-    background-color: #edf2f4;
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-global);
+
 }
 
 .button-30 {
@@ -97,7 +115,8 @@ h1 {
     cursor: pointer;
     display: inline-flex;
     font-family: 'Wii';
-    height: 48px;
+    height: auto;
+    width: 50px;
     line-height: 1;
     list-style: none;
     overflow: hidden;
@@ -119,9 +138,7 @@ h1 {
     background-color: #36395A;
     box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #2b2d47 0 -3px 0 inset;
     width: 100px;
-    /* Set a larger width */
     padding-right: 32px;
-    /* Increase padding for larger right space */
     padding-left: 32px;
 
 }
@@ -265,7 +282,7 @@ h1 {
     position: fixed;
     width: 100%;
     height: 100%;
-    background-color: rgb(202, 214, 219);
+    background-color: var(--color-global);
     z-index: 10;
     top: 0;
     left: 0;
@@ -292,7 +309,7 @@ h1 {
     text-align: center;
     font-size: 100px;
     font-family: "Wii";
-    color: #2b2d42;
+    color: var(--color-font);
     top: 15vh;
     left: 50vw;
     width: 100%;
@@ -313,7 +330,7 @@ h1 {
 .resultSquare {
     width: 80px;
     height: 80px;
-    background-color: rgb(237, 242, 244);
+    background-color: var(--color-global);
     z-index: 0;
     transition: transform 0.1s ease-in-out, background-color 0.3s ease-in-out;
 }

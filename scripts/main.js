@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let start = guesses * 5;
         for (let i = 0; i < 5; i++) {
             if (squares[start + i]) {
-                squares[start + i].style.borderRadius = "10px";
+                squares[start + i].style.borderRadius = "15px";
             }
         }
     }
@@ -201,20 +201,41 @@ document.addEventListener('DOMContentLoaded', () => {
     function setColor(mysquare, numcolor) {
         if (numcolor === 0) {
             mysquare.style.backgroundColor = '#f94144';
+            if (mysquare.classList.contains('square')) {
+                mysquare.style.color = "rgb(185, 56, 58)";
+                mysquare.textContent = "RED";
+            }
         }
         if (numcolor === 1) {
-            mysquare.style.backgroundColor = '#f9c74f';
+            if (mysquare.classList.contains('square')) {
+                mysquare.style.backgroundColor = '#f9c74f';
+                mysquare.style.color = "rgb(168, 133, 49)";
+                mysquare.textContent = "YELLOW";
+            }
         }
         if (numcolor === 2) {
             mysquare.style.backgroundColor = '#90be6d';
+            if (mysquare.classList.contains('square')) {
+                mysquare.style.color = "rgb(93, 117, 74)";
+                mysquare.textContent = "GREEN";
+            }
         }
         if (numcolor === 3) {
             mysquare.style.backgroundColor = '#277da1';
+            if (mysquare.classList.contains('square')) {
+                mysquare.style.color = "rgb(33, 75, 94)";
+                mysquare.textContent = "BLUE";
+            }
         }
         if (numcolor === 4) {
             mysquare.style.backgroundColor = '#edf2f4';
+            if (mysquare.classList.contains('square')) {
+                mysquare.style.color = "rgb(185, 191, 194)";
+                mysquare.textContent = "WHITE";
+            }
         }
     }
+
     updateButtonVisibility();
 
     //POINTS SCREEN////////////////////////////
@@ -284,6 +305,51 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+
+    //COLOR NAMES////////////////////////////////////////
+
+    document.querySelector('.square').addEventListener('mouseenter', function () {
+        const currentColor = window.getComputedStyle(this).backgroundColor;
+        squares.forEach(square => {
+            square.addEventListener('mouseenter', function () {
+                const currentColor = window.getComputedStyle(this).backgroundColor;
+
+                switch (currentColor) {
+                    case "rgb(237, 242, 244)":
+                        this.style.color = "rgb(185, 191, 194)";
+                        this.textContent = "WHITE";
+                        break;
+                    case "rgb(249, 65, 68)":
+                        this.style.color = "rgb(185, 56, 58)";
+                        this.textContent = "RED";
+                        break;
+                    case "rgb(249, 199, 79)":
+                        this.style.color = "rgb(168, 133, 49)";
+                        this.textContent = "YELLOW";
+                        break;
+                    case "rgb(144, 190, 109)":
+                        this.style.color = "rgb(93, 117, 74)";
+                        this.textContent = "GREEN";
+                        break;
+                    case "rgb(39, 125, 161)":
+                        this.style.color = "rgb(33, 75, 94)";
+                        this.textContent = "BLUE";
+                        break;
+                    default:
+                        this.style.backgroundColor = "rgb(237, 242, 244)";
+                        this.style.color = "rgb(0, 0, 0)";
+                        this.textContent = "Texto Original";
+                }
+            });
+            square.addEventListener('mouseleave', function () {
+                this.textContent = "";
+            });
+        });
+
+
+    });
 });
+
+
 
 
